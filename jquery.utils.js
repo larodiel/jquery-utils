@@ -1,35 +1,13 @@
 (function($){
 	var methods = {
-		//debug
-		debug : function(el){
-			var el = $.trim(el);
-			if(typeof console === "undefined") {
-			alert(el);
-			}
-			else{
-				console.log(el);
-			}
-		},
 		//modal
 		modal: function(scrollFollow,callback){
 			var arg = arguments;
 			$(this).hide();
-			(arg[1].callback.modalLoad) ? arg[1].callback.modalLoad.call() : "";
+			(callback && arg[1].callback.modalLoad) ? arg[1].callback.modalLoad.call() : "";
 			var html = $(this).html();
-			var maskcss = {
-				height: $(document).height(),
-				width: $(window).width(),
-				"position": "absolute",
-				"z-index": "1000",
-				top: 0,
-				left: 0,
-				"display": "none",
-				"background-color":"#000"
-			};
-			
 			//html
 			$("<div>",{ id:"util-modal-wrap" }).appendTo('body');
-			$("<div>", { id:"util-mask"}).appendTo('#util-modal-wrap');
 			$("<div>", { id: "util-modal-content"}).appendTo('#util-modal-wrap');
 
 			var contentWidth = Number($(this).width())
@@ -60,7 +38,7 @@
 						width: 0,
 						'margin-left': 0,
 						height: 0,
-						'margin-top': 0
+						'margin-top': 0,
 					}
 				}
 				return obj;
@@ -70,19 +48,23 @@
 					var marginT = ($(window).height()-contentHeight)/2;
 					top = $(window).scrollTop()+ (contentHeight/2+marginT);
 					$("#util-modal-content").css({top: top, left:left});
+					contentcss = { top: top}
 				});
 			}
 			
-			$("#util-mask").css(maskcss).fadeTo('slow',0.5);
+			methods._mask("#000");
 			$("#util-modal-content").html(html);
 			$("#util-modal-content").css(contentcss).width(0).height(0).animate(animation("in"),500, function(){
-				(arg[1].callback.modalOpen) ? arg[1].callback.modalOpen.call() : "";
+				(callback && arg[1].callback.modalOpen) ? arg[1].callback.modalOpen.call() : "";
 			});
 			$("#util-mask, .modal-close").on('click',function(){
 				$("#util-modal-content").css(contentcss).animate(animation("out"),500, function(){ 
 					$(this).hide();
-					$("#util-mask").fadeOut();
-					(arg[1].callback.modalClose) ? arg[1].callback.modalClose.call() : "";
+					$("#util-mask").fadeOut('slow',function(){
+						$("#util-modal-wrap").remove();
+						$(this).remove();
+					});
+					(callback && arg[1].callback.modalClose) ? arg[1].callback.modalClose.call() : "";
 				});
 			});
 		},
@@ -132,15 +114,119 @@
 				html += "<li><span class='number-"+str[i]+"'>"+str[i]+"</span></li>";
 			}
 			$(appendCont).html(html);
+		},
+		//select video
+		getVideoID : function() {
+			var elements = $(this).parent().children().removeClass('current');
+			if(!$(this).hasClass('locked')) {
+				elements.removeClass('current');
+				$(this).addClass('current');
+				return  $(this).attr("id").split("videoID_",2)[1];
+			}
+			else {
+				return false;
+			}
+		},
+		//show video
+		showVideo : function(videoID,dimensions,autoplay){
+			var dimensionsDefault = { width: 560, height: 315};
+			var dimensions = $.extend(dimensionsDefault, dimensions);
+			autoplay = (autoplay=="undefined" || autoplay==true) ? 1 : 0;
+			var html = "<object width='"+dimensions.width+"' height='"+dimensions.height+"'>";
+			html +=	"<param name='movie' value='http://www.youtube.com/v/"+videoID+"?version=3&amp;playerapiid=ytplayer&amp;enablejsapi=1&amp;autoplay="+autoplay+"'></param>";
+			html +=	"<param name='allowFullScreen' value='true' />";
+			html +=	"<param name='allowscriptaccess' value='always' />";
+			html +=	"<param name='wmode' value='transparent' />";
+			html +=	"<embed src='http://www.youtube.com/v/"+videoID+"?version=3&amp;playerapiid=ytplayer&amp;enablejsapi=1&amp;autoplay="+autoplay+"' type='application/x-shockwave-flash' width='"+dimensions.width+"' height='"+dimensions.height+"' allowscriptaccess='always' allowfullscreen='true' wmode='transparent'></embed>";
+			html += "</object>";
+	
+			$(this).html(html);
+		},
+		//accordion
+		accordion: function() {
+			var el = $(this).next();
+			el.hide();
+			$(this).on('click',function(e){
+				e.preventDefault();
+				($(this).hasClass("open")) ? $(this).removeClass("open") : $(this).removeClass("closed") ;
+				el.slideUp('fast');
+				if(el.is(':hidden')) {
+					$(this).addClass("open");
+					el.slideDown('fast');
+				}
+				else {
+					$(this).addClass("closed");
+					el.slideUp('fast');
+				}
+			});
+		},
+		
+		//Private Methods
+		
+		//mask
+		_mask: function(bgcolor,callback) {
+			var mHeight = $(document).height();
+			var mWidth = $(window).width();
+			$("#util-mask").on('resize',function(){
+				 mHeight = $(document).height();
+				 mWidth = $(window).width();
+			});
+			var maskcss = {
+				height: mHeight ,
+				width: mWidth ,
+				"position": "absolute",
+				"z-index": "1000",
+				top: 0,
+				left: 0,
+				"display": "none",
+				"background-color": bgcolor
+			};
+			$("<div>", { id:"util-mask"}).appendTo('body');
+			$("#util-mask").css(maskcss).fadeTo('slow',0.5,function(){
+				(callback && typeof(callback)=="function") ? callback.call() : "";
+			});
 		}
 	};
+	//debug
+	$.utils = {
+		debug : function(el){
+			var el = $.trim(el);
+			if(typeof(console) === "undefined") {
+			alert(el);
+			}
+			else{
+				console.log(el);
+			}
+		},
+		uAlert : function(okButton, txt, f){
+			var f = (f && typeof(f)=="object") ? f : "";
+			var html = "<div id='util-alert-wrap' style='display:none'>  <div id='alert-painel'><h1 id='util-alert-title'>"+txt.title+"</h1><h2 id='description'>"+txt.description+"</h2><input type='button' name='ultil-ok' value='"+okButton+"' id='uAlert-ok' /></div>  </div>";
+			methods._mask("#ccc",function(){
+				$('body').append(html);	
+				$("#util-alert-wrap").fadeIn("fast",function(){
+					(f) ? f.callback.onload.call() : "";
+				});
+				
+				$("#uAlert-ok").on('click',function() {
+					$("#util-mask, #util-alert-wrap").fadeOut('fast',function(){
+						$("#util-alert-wrap").remove();
+						$(this).remove();
+						(f) ? f.callback.onclose.call() : "";
+					});
+				});
+				$("#uAlert-ok").focus().keypress( function(e) {
+					if( e.keyCode == 13 || e.keyCode == 27 ) $("#uAlert-ok").trigger('click');
+				});
+			});		
+		}
+	}
 	$.fn.utils = function(method) {
 		if ( methods[method] ) {
 		  return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
 		} else if ( typeof method === 'object' || ! method ) {
 		  return methods.init.apply( this, arguments );
 		} else {
-		  $.error( 'O metodo ' +  method + ' nao existe' );
+		  $.error( 'The method ' +  method + " doesn't exist" );
 		}
 	}
 })(jQuery);
