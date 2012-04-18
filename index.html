@@ -4,11 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link href="jquery.utils.css" type="text/css" rel="stylesheet" />
 <style>
+<<<<<<< HEAD
 #root {
 	width:990px;
 	margin:0 auto;
 	box-shadow:0 0 20px #665;
 	border-radius:5px;
+=======
+body {
+	
+>>>>>>> a60c0c9b8ef7c3dececcca4b55f5d5467c0cd952
 }
 div#modal {
 	width:300px;
@@ -49,7 +54,11 @@ $(function(){
 		$(this).parent().children('.stage').utils('showVideo',videoID);
 	});
 	$("#alert").click(function(){
+<<<<<<< HEAD
 		$.utils.uAlert("OK",{title:"Congratulations! you saw the alert running!", description: "Here you put your description."},
+=======
+		$.utils.uAlert("OK",{title:"Congratulations! you saw the alert running!", description: "=)"},
+>>>>>>> a60c0c9b8ef7c3dececcca4b55f5d5467c0cd952
 			{
 				callback: {
 					onclose: function() {
@@ -65,6 +74,7 @@ $(function(){
 </head>
 
 <body>
+<<<<<<< HEAD
 <div id="root">
     <p><a href="javascript:" class="open-modal">Click here to open modal</a></p>
     <div id="modal" style="display:none">
@@ -99,5 +109,39 @@ $(function(){
         </li> 
     </ul>
 </div>    
+=======
+<p><a href="javascript:" class="open-modal">Click here to open modal</a></p>
+<div id="modal" style="display:none">
+	<a href="javascript:" class="modal-close">[X]</a>
+	<p>My modal :)</p>
+</div>
+
+<a href="javascript:" id="alert">Click here to see uAlert</a>
+
+<input type="text" name="teste" id="input-teste" />
+<p id="counter"></p>
+
+<ul id="image-counter"></ul>
+
+<div id="videoGallery">
+</div>
+<ul id="videoList">
+	<li id="videoID__cuH-8YUYPc" class="locked">
+    	<a href="javascript:">teste 1</a>
+    	<div class="stage">
+		</div>
+    </li> 
+    <li id="videoID_y1ajgAGWH6E">
+    	<a href="javascript:" class="open">teste 1</a>
+    	<div class="stage">
+		</div>
+    </li> 
+    <li id="videoID_jKdY50sZ0bc">
+    	<a href="javascript:">teste 1</a>
+    	<div class="stage">
+		</div>
+    </li> 
+</ul>
+>>>>>>> a60c0c9b8ef7c3dececcca4b55f5d5467c0cd952
 </body>
 </html>
