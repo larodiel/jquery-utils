@@ -176,13 +176,6 @@
 		_mask: function(bgcolor,callback) {
 			var mHeight = $(document).height();
 			var mWidth = $(window).width();
-<<<<<<< HEAD
-=======
-			$(window).on('resize',function(){
-				 mHeight = $(document).height();
-				 mWidth = $(window).width();
-			});
->>>>>>> a60c0c9b8ef7c3dececcca4b55f5d5467c0cd952
 			var maskcss = {
 				height: mHeight ,
 				width: mWidth ,
@@ -229,34 +222,20 @@
 			var html = "<div id='util-alert-wrap' style='display:none'>  <div id='alert-painel'><h1 id='util-alert-title'>"+txt.title+"</h1><h2 id='description'>"+txt.description+"</h2><input type='button' name='ultil-ok' value='"+okButton+"' id='uAlert-ok' /></div>  </div>";
 			var left = parseInt($(window).width()/2);
 			var top = parseInt($(window).height()/2);
-<<<<<<< HEAD
 				methods._mask("#ccc",function(){
 				$('div:first').append(html);
 				top -= $('#util-alert-wrap').height()/2;
 				left -= $('#util-alert-wrap').width()/2;
-=======
-			methods._mask("#ccc",function(){
-				$('body').append(html);
-				top -= $('#util-alert-wrap').height()/2
-				left -= $('#util-alert-wrap').width()/2
->>>>>>> a60c0c9b8ef7c3dececcca4b55f5d5467c0cd952
 				$('#util-alert-wrap').css({
 					'top': top,
 					'left': left,
 					'position': 'absolute',
-<<<<<<< HEAD
 					'z-index': '3000',
 					'display':'none'
 				});
 				$("#util-alert-wrap").hide().fadeIn("fast",function(){
-=======
-					'z-index': '3000'
-				});	
-				$("#util-alert-wrap").fadeIn("fast",function(){
->>>>>>> a60c0c9b8ef7c3dececcca4b55f5d5467c0cd952
 					(f && f.callback.onload) ? f.callback.onload() : "";
-				});
-				
+				});					
 				$("#uAlert-ok").on('click',function() {
 					$("#util-mask, #util-alert-wrap").fadeOut('fast',function(){
 						$("#util-alert-wrap").remove();
