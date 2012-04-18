@@ -2,70 +2,102 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="jquery.utils.css" type="text/css" rel="stylesheet" />
 <style>
-body {
-	height:1500px;
+#root {
+	width:990px;
+	margin:0 auto;
+	box-shadow:0 0 20px #665;
+	border-radius:5px;
 }
 div#modal {
 	width:300px;
 	height:300px;
 }
-#util-alert-wrap {
+/*#util-alert-wrap {
 	position:fixed;
 	width:600px;
 	height:300px;
-	z-index:2000;
+	z-index:2000; 
 	background:#fff;
 	left:50%;
 	margin-left:-300px;
-}
+	top:0;
+}*/
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="jquery.utils.js"></script>
 <!--<script type="text/javascript" src="jquery.lint.js"></script>-->
 <script type="text/javascript">
 $(function(){
-
-		//$("#modal").utils("modal","scrollFollow");
-/*		$("#videoGallery").utils("videoGallery",
-			[
-				["-uGg0kEZCIU","<img src='http://4.bp.blogspot.com/-Kg-Wi1KXwrc/TyNguwBCCPI/AAAAAAAAChA/SMV7Zo1JXj0/s1600/johnny+derp.jpg' width='30'","lalala"],
-				["J5pJ4NE1oA8","<img src='http://4.bp.blogspot.com/-Kg-Wi1KXwrc/TyNguwBCCPI/AAAAAAAAChA/SMV7Zo1JXj0/s1600/johnny+derp.jpg' width='30'","lalala"]
-			],
-			{width:250,height:250},1
+	$(".open-modal").click(function(){
+		$("#modal").utils("modal");
+	});
+	$("#videoGallery").utils("videoGallery",
+		[
+			["-uGg0kEZCIU","<img src='http://4.bp.blogspot.com/-Kg-Wi1KXwrc/TyNguwBCCPI/AAAAAAAAChA/SMV7Zo1JXj0/s1600/johnny+derp.jpg >' width='30' />","Messi"],
+			["J5pJ4NE1oA8","<img src='http://4.bp.blogspot.com/-Kg-Wi1KXwrc/TyNguwBCCPI/AAAAAAAAChA/SMV7Zo1JXj0/s1600/johnny+derp.jpg' width='30' />","Partoba"]
+		],
+		{width:250,height:250},
+		0 //autoplay
+	);
+	$("#input-teste").utils("caracterCounter",300);
+	$("#input-teste").utils("imageCounter","150",5,"#image-counter")
+	$("#videoList li > a").utils('accordion');
+	$("#videoList li a").click(function(){
+		var videoID = $(this).parent().utils("getVideoID");
+		$(this).parent().children('.stage').utils('showVideo',videoID);
+	});
+	$("#alert").click(function(){
+		$.utils.uAlert("OK",{title:"Congratulations! you saw the alert running!", description: "Here you put your description."},
+			{
+				callback: {
+					onclose: function() {
+						$.utils.debug('See ya!')
+					}
+				}
+			}
 		);
-		$("#input-teste").utils("caracterCounter",300);
-		$("#input-teste").utils("imageCounter","320",5,"#counter")*/
-		$("#videoList li > a").utils('accordion');
-		$("#videoList li").click(function(){
-			//$.utils.uAlert('oi',{title:"Vídeo", description: $(this).utils("getVideoID")})
-			var videoID = $(this).utils("getVideoID");
-			$("#stage").utils('showVideo',videoID);
-		});
-		;
+	});
 });
 </script>
 <title>Jquery utils plugin</title>
 </head>
 
 <body>
-<!--<div id="modal">
-	<p>Teste modal :)</p>
-    <a href="javascript:" class="modal-close">fechar</a>
-</div>-->
-<input type="text" name="teste" id="input-teste" />
-<p id="counter"></p>
-<div id="videoGallery">
-</div>
-<ul id="videoList">
-	<li id="videoID__cuH-8YUYPc" class="locked">
-    	<a href="javascript:">teste 1</a>
-    	<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam facilisis tristique dui at euismod. Nam scelerisque faucibus lectus id feugiat. Duis urna lacus, tempus ac adipiscing luctus, aliquam eget massa. Duis dictum justo et ipsum pulvinar tempus. Nunc at ligula eget leo dictum ultrices sit amet euismod tellus. Duis aliquam turpis et neque interdum ac tincidunt arcu pellentesque. Donec nec felis urna. Vestibulum id sollicitudin arcu. Fusce sed euismod erat.</div>
-    </li> 
-    <li id="videoID_y1ajgAGWH6E">Teste</li> 
-    <li id="videoID_jKdY50sZ0bc">Teste</li> 
-</ul>
-<div id="stage">
-</div>
+<div id="root">
+    <p><a href="javascript:" class="open-modal">Click here to open modal</a></p>
+    <div id="modal" style="display:none">
+        <a href="javascript:" class="modal-close">[X]</a>
+        <p>My modal :)</p>
+    </div>
+    
+    <a href="javascript:" id="alert">Click here to see uAlert</a>
+    
+    <input type="text" name="teste" id="input-teste" />
+    <p id="counter"></p>
+    
+    <ul id="image-counter"></ul>
+    
+    <div id="videoGallery">
+    </div>
+    <ul id="videoList">
+        <li id="videoID__cuH-8YUYPc" class="locked">
+            <a href="javascript:">teste 1</a>
+            <div class="stage">
+            </div>
+        </li> 
+        <li id="videoID_y1ajgAGWH6E">
+            <a href="javascript:" class="open">teste 1</a>
+            <div class="stage">
+            </div>
+        </li> 
+        <li id="videoID_jKdY50sZ0bc">
+            <a href="javascript:">teste 1</a>
+            <div class="stage">
+            </div>
+        </li> 
+    </ul>
+</div>    
 </body>
 </html>
