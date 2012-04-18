@@ -1,0 +1,70 @@
+/*
+	Author: Victor Larodiel
+	Last Update: 18-04-2012
+*/
+
+/*Modal*/
+#util-modal-content {
+	background:#fff;
+	padding: 5px;
+	border:2px solid #ccc;
+	width:400px;
+	height:400px;
+}
+#util-modal-content .modal-close {
+	float: right;
+	color: #555;
+}
+
+/*Video Gallery*/
+#util-video-gallery { overflow: hidden;}
+#util-video-gallery li {
+	list-style-type:none;
+	float: left;
+	margin-right:5px;
+	cursor: pointer;
+}
+#util-video-gallery li .util-thumb { border:1px solid #fff; }
+#util-video-gallery li.current .util-thumb { border:1px solid #000;}
+#util-video-gallery li:last-child { margin-right:none; }
+
+/*caracter counter*/
+
+/*text to image counter*/
+#image-counter  { overflow:hidden; list-style-type:none; }
+#image-counter li { float:left; }
+#image-counter li span {	
+	background:url("http://larodiel.com/tools/javascript/utilsclass/sprite-numbers.gif") no-repeat; 
+	height:17px; 
+	display:block;
+	text-indent:-9999px; 
+}
+
+#image-counter li span.number-1 { background-position:0 0; width:6px; }
+#image-counter li span.number-2 { background-position:-6px 0; width:15px; }
+#image-counter li span.number-3 { background-position:-21px 0; width:15px; }
+#image-counter li span.number-4 { background-position:-40px 0; width:13px; }
+#image-counter li span.number-5 { background-position:-53px 0; width:15px; }
+#image-counter li span.number-6 { background-position:-68px 0; width:12px; }
+#image-counter li span.number-8 { background-position:-96px 0; width:12px; }
+#image-counter li span.number-9 { background-position:-112px 0; width:12px; }
+#image-counter li span.number-0 { background-position:-127px 0; width:11px; }
+
+/*alert*/
+#util-alert-wrap {
+	background:#fff;
+	border-radius:3px;
+	padding: 10px;
+	box-shadow:0 0 10px #665;
+	font-size:12px;
+}
+#uAlert-ok {
+	background-color: #665;
+	width:80px;
+	height:25px;
+	border:0 #999;
+	color:#fff;
+	margin: 0 auto;
+	display: block;
+	cursor: pointer;
+}
