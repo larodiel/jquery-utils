@@ -9,6 +9,7 @@
 	margin:0 auto;
 	box-shadow:0 0 20px #665;
 	border-radius:5px;
+	font-family:Arial, Helvetica, sans-serif;
 }
 div#modal {
 	width:300px;
@@ -59,43 +60,51 @@ $(function(){
 			}
 		);
 	});
+	var updateTxt = '<p>';
+           updateTxt += 'This website does not support the browser version<br />';
+           updateTxt += 'you are using. Please update your'; 
+           updateTxt += 'browser for a better experience.';
+           updateTxt +='</p>';
+	$.utils.browserUpdate();
 });
 </script>
 <title>Jquery utils plugin</title>
 </head>
 
 <body>
-<p><a href="javascript:" class="open-modal">Click here to open modal</a></p>
-<div id="modal" style="display:none">
-	<a href="javascript:" class="modal-close">[X]</a>
-	<p>My modal :)</p>
-</div>
-
-<a href="javascript:" id="alert">Click here to see uAlert</a>
-
-<input type="text" name="teste" id="input-teste" />
-<p id="counter"></p>
-
-<ul id="image-counter"></ul>
-
-<div id="videoGallery">
-</div>
-<ul id="videoList">
-	<li id="videoID__cuH-8YUYPc" class="locked">
-    	<a href="javascript:">teste 1</a>
-    	<div class="stage">
-		</div>
-    </li> 
-    <li id="videoID_y1ajgAGWH6E">
-    	<a href="javascript:" class="open">teste 1</a>
-    	<div class="stage">
-		</div>
-    </li> 
-    <li id="videoID_jKdY50sZ0bc">
-    	<a href="javascript:">teste 1</a>
-    	<div class="stage">
-		</div>
-    </li> 
-</ul>
+<div id="root">
+    <p><a href="javascript:" class="open-modal">Click here to open modal</a></p>
+    <div id="modal" style="display:none">
+        <a href="javascript:" class="modal-close">[X]</a>
+        <p>My modal :)</p>
+    </div>
+    
+    <a href="javascript:" id="alert">Click here to see uAlert</a>
+    
+    <input type="text" name="teste" id="input-teste" />
+    <p id="counter"></p>
+    
+    <ul id="image-counter"></ul>
+    
+    <div id="videoGallery">
+    </div>
+    <ul id="videoList">
+        <li id="videoID__cuH-8YUYPc" class="locked">
+            <a href="javascript:">teste 1</a>
+            <div class="stage">
+            </div>
+        </li> 
+        <li id="videoID_y1ajgAGWH6E">
+            <a href="javascript:" class="open">teste 1</a>
+            <div class="stage">
+            </div>
+        </li> 
+        <li id="videoID_jKdY50sZ0bc">
+            <a href="javascript:">teste 1</a>
+            <div class="stage">
+            </div>
+        </li> 
+    </ul>
+</div>    
 </body>
 </html>

@@ -68,3 +68,26 @@
 	display: block;
 	cursor: pointer;
 }
+
+/*browser update*/
+#utils-browser-list-wrap { width:450px; height:130px; }
+#utils-update-text { text-align:center; }
+#update-close {
+	float:right;
+	display:block;
+	padding:5px 5px 0 0;
+	text-decoration:none;
+	color:#665;
+}
+#util-browser-list li { float:left; list-style-type:none; }
+#util-browser-list li a {
+	background-image:url(images/sprite-logos-browsers.jpg);
+	display:block;
+	width:74px;
+	height:26px;
+	margin-right:3px;
+}
+.nav-chrome { background-position: -74px 0; }
+.nav-firefox { background-position: -148px 0; }
+.nav-opera { background-position: -232px 0; }
+.nav-ie { background-position: -309px 0; }

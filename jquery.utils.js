@@ -204,6 +204,13 @@
 					top: pTop
 				})
 			});
+		},
+		_windowCenter : function(el){
+			var left = parseInt($(window).width()/2);
+			var top = parseInt($(window).height()/2);
+			top -= el.height()/2;
+			left -= el.width()/2;
+			el.css({left: left, top:top, 'position':'absolute', zIndex: 3000});
 		}
 	};
 	//debug
@@ -247,6 +254,43 @@
 					if( e.keyCode == 13 || e.keyCode == 27 ) $("#uAlert-ok").trigger('click');
 				});
 			});		
+		},
+		browserUpdate :function(text){
+			var updateTxt = '<p>';
+			   updateTxt += 'This website does not support the browser version<br />';
+			   updateTxt += 'you are using. Please update your'; 
+			   updateTxt += 'browser for a better experience.';
+			   updateTxt +='</p>';
+			text = (text) ? text : updateTxt;
+			if($.browser.msie && parseFloat($.browser.version)< 7 || $.browser.mozilla && parseFloat($.browser.version)<=3) {
+				$("<div>", {id: "utils-browser-list-wrap"}).css({background:'#fff', display: 'none'}).appendTo('div:first');
+				$("<a>",{id:"update-close", href:"javascript:"}).text('X').appendTo('#utils-browser-list-wrap');
+				var browserList = [
+						["chrome", '<a href="http://www.google.com/chrome" target="_blank" alt="Download Chrome" class="nav-chrome"></a>'],
+						["safari", '<a href="http://www.apple.com/safari/download/" target="_blank" alt="Download Safari" class="nav-safari"></a>'],
+						["firefox", '<a href="http://br.mozdev.org/download/" target="_blank" alt="Download Firefox" class="nav-firefox"></a>'],
+						["opera", '<a href="http://www.opera.com/download/" target="_blank" alt="Download Opera" class="nav-opera"></a>'],
+						["ie", '<a href="http://windows.microsoft.com/pt-BR/internet-explorer/downloads/ie" target="_blank" alt="Download Internet Explorer" class="nav-ie"></a>']
+				];
+				var html = "<div id='utils-update-text'>"+text+"</div>";
+					html += "<ul id='util-browser-list'>";
+						for(var i=0; i<browserList.length; i++){
+							html += "<li>"+browserList[i][1]+"</li>";
+						}
+					html += "</ul>";
+					$("#utils-browser-list-wrap").append(html);
+					methods._windowCenter($("#utils-browser-list-wrap"));
+				methods._mask("#000",function(){
+					$("#utils-browser-list-wrap").hide().fadeIn('slow');
+				});
+				$("#update-close ,#util-mask").on('click',function(e){
+					e.preventDefault();
+					
+					$("#util-mask, #utils-browser-list-wrap").fadeOut('fast',function(){
+						$("#util-mask, #utils-browser-list-wrap").remove();
+					});
+				});
+			}
 		}
 	}
 	$.fn.utils = function(method) {
